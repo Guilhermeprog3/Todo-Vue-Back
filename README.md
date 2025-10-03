@@ -111,10 +111,12 @@ O FastAPI gera documentação automática da API: - Swagger UI →
 
 ------------------------------------------------------------------------
 
-## 📝 Licença
+## 👨‍💻 Sobre o Criador
 
-Este projeto é distribuído sob a licença **MIT**.\
-Sinta-se livre para usar e modificar conforme necessário.
+Projeto desenvolvido por **Guilherme Silva Rios**, desenvolvedor **Full
+Stack**.\
+🔗 Portfólio:
+[guilhermeriosdev.vercel.app](https://guilhermeriosdev.vercel.app)
 
 ------------------------------------------------------------------------
 
