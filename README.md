@@ -1,76 +1,98 @@
-Todo-Vue-Back
-Este é o backend para uma aplicação de lista de tarefas (To-Do List), construído com FastAPI e SQLAlchemy. Ele fornece uma API RESTful para gerenciar usuários e tarefas, incluindo autenticação de usuário e operações CRUD para tarefas.
+# 📌 Todo-Vue-Back
 
-Funcionalidades
-Autenticação de Usuário:
+Este é o **backend** para uma aplicação de lista de tarefas (**To-Do List**), construído com **FastAPI** e **SQLAlchemy**.  
+Ele fornece uma **API RESTful** para gerenciar **usuários** e **tarefas**, incluindo autenticação JWT e operações CRUD.
 
-Registro de novos usuários.
+---
 
-Login de usuários com JWT (JSON Web Tokens) para autenticação.
+## 🚀 Funcionalidades
 
-Gerenciamento de Tarefas:
+### 🔐 Autenticação de Usuário
+- Registro de novos usuários.
+- Login com **JWT (JSON Web Tokens)** para autenticação.
 
-Criar novas tarefas.
+### ✅ Gerenciamento de Tarefas
+- Criar novas tarefas.
+- Listar todas as tarefas de um usuário autenticado.
+- Atualizar os detalhes de uma tarefa.
+- Excluir uma tarefa.
+- Marcar como **concluída / não concluída**.
 
-Ler todas as tarefas de um usuário.
+---
 
-Atualizar os detalhes de uma tarefa.
+## 🛠️ Tecnologias Utilizadas
+- [FastAPI](https://fastapi.tiangolo.com/) → Framework web moderno e rápido.
+- [SQLAlchemy](https://www.sqlalchemy.org/) → ORM para manipulação do banco de dados.
+- [Pydantic](https://docs.pydantic.dev/) → Validação de dados.
+- [Python-JOSE](https://python-jose.readthedocs.io/en/latest/) → Manipulação de **JWT**.
+- [Passlib](https://passlib.readthedocs.io/) → Hashing seguro de senhas.
+- [SQLite](https://www.sqlite.org/index.html) → Banco de dados utilizado.
 
-Excluir uma tarefa.
+---
 
-Marcar uma tarefa como concluída/não concluída.
+## 📡 Endpoints da API
 
-Tecnologias Utilizadas
-FastAPI: Um moderno e rápido framework web para Python para construir APIs.
+### 🔐 Autenticação
+- **POST** `/users/` → Criar um novo usuário.  
+- **POST** `/token` → Autenticar usuário e gerar token JWT.
 
-SQLAlchemy: Um ORM (Object Relational Mapper) para interagir com o banco de dados.
+### 📝 Tarefas
+- **POST** `/tasks/` → Criar nova tarefa.  
+- **GET** `/tasks/` → Listar todas as tarefas do usuário autenticado.  
+- **PUT** `/tasks/{task_id}` → Atualizar tarefa existente.  
+- **DELETE** `/tasks/{task_id}` → Excluir tarefa.  
+- **PATCH** `/tasks/{task_id}/toggle` → Alternar status (concluída/não concluída).  
 
-Pydantic: Para validação de dados.
+---
 
-JOSE: Para manipulação de JWT (JSON Web Tokens).
+## ⚙️ Como Executar o Projeto
 
-Passlib: Para hashing de senhas.
-
-SQLite: O banco de dados utilizado neste projeto.
-
-Endpoints da API
-Autenticação
-POST /users/: Cria um novo usuário.
-
-POST /token: Autentica um usuário e retorna um token de acesso.
-
-Tarefas
-POST /tasks/: Cria uma nova tarefa.
-
-GET /tasks/: Retorna a lista de tarefas do usuário autenticado.
-
-PUT /tasks/{task_id}: Atualiza uma tarefa existente.
-
-DELETE /tasks/{task_id}: Exclui uma tarefa.
-
-PATCH /tasks/{task_id}/toggle: Alterna o status de conclusão de uma tarefa.
-
-Como Executar o Projeto
-Clone o repositório:
-
-Bash
-
-git clone <URL do repositório>
+### 1️⃣ Clonar o repositório
+```bash
+git clone <URL_DO_REPOSITORIO>
 cd todo-vue-back
-Crie e ative um ambiente virtual:
-
-Bash
-
+2️⃣ Criar e ativar ambiente virtual
+bash
+Copiar código
 python -m venv venv
-source venv/bin/activate  # No Windows use `venv\Scripts\activate`
-Instale as dependências:
-
-Bash
-
+# Linux/macOS
+source venv/bin/activate
+# Windows
+venv\Scripts\activate
+3️⃣ Instalar dependências
+bash
+Copiar código
 pip install fastapi uvicorn sqlalchemy pydantic python-jose passlib bcrypt
-Execute o servidor:
-
-Bash
-
+4️⃣ Executar o servidor
+bash
+Copiar código
 uvicorn main:app --reload
-A API estará disponível em http://127.0.0.1:8000.
+A API estará disponível em:
+👉 http://127.0.0.1:8000
+
+📖 Documentação Automática
+O FastAPI gera documentação automática da API:
+
+Swagger UI → http://127.0.0.1:8000/docs
+
+Redoc → http://127.0.0.1:8000/redoc
+
+📌 Próximos Passos
+ Adicionar testes automatizados com Pytest.
+
+ Implementar refresh token.
+
+ Configurar Docker para deploy.
+
+ Integração com frontend Vue (Todo-Vue-Front).
+
+📝 Licença
+Este projeto é distribuído sob a licença MIT.
+Sinta-se livre para usar e modificar conforme necessário.
+
+👨‍💻 Desenvolvido com ❤️ usando FastAPI.
+
+css
+Copiar código
+
+Quer que eu também gere a versão pronta em **`README.md`** (arquivo real) para você baixar direto?
