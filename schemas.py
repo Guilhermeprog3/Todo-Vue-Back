@@ -1,7 +1,6 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 from typing import Optional
 from datetime import datetime
-
 
 class TaskBase(BaseModel):
     title: str
@@ -27,12 +26,18 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     password: str
 
+    @validator('password')
+    def password_must_not_exceed_72_chars(cls, v):
+        if len(v.encode('utf-8')) > 72:
+            raise ValueError('A senha não pode ter mais de 72 caracteres.')
+        return v
+
 class User(UserBase):
     id: int
     tasks: list[Task] = []
 
     class Config:
-        from_attributes = True 
+        from_attributes = True
 
 class Token(BaseModel):
     access_token: str
