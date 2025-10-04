@@ -15,9 +15,10 @@ class Task(TaskBase):
     id: int
     completed: bool
     owner_id: int
+    status: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class UserBase(BaseModel):
@@ -31,7 +32,7 @@ class User(UserBase):
     tasks: list[Task] = []
 
     class Config:
-        orm_mode = True
+        from_attributes = True 
 
 class Token(BaseModel):
     access_token: str

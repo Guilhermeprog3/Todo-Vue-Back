@@ -1,7 +1,7 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime
 from sqlalchemy.orm import relationship
 
-from .database import Base
+from database import Base
 
 class User(Base):
     __tablename__ = "users"
@@ -21,5 +21,7 @@ class Task(Base):
     due_date = Column(DateTime, nullable=True)
     completed = Column(Boolean, default=False)
     owner_id = Column(Integer, ForeignKey("users.id"))
+
+    status = Column(String, default="Pendente")
 
     owner = relationship("User", back_populates="tasks")

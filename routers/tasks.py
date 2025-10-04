@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List
+from datetime import datetime
 
-from .. import schemas, models, security, database
+import schemas, models, security, database
 
 router = APIRouter(
     prefix="/tasks",
@@ -21,6 +22,21 @@ def create_task(task: schemas.TaskCreate, db: Session = Depends(database.get_db)
 
 @router.get("/", response_model=List[schemas.Task])
 def read_tasks(skip: int = 0, limit: int = 100, db: Session = Depends(database.get_db), current_user: models.User = Depends(security.get_current_user)):
+    
+    now = datetime.utcnow()
+    
+    expired_tasks = db.query(models.Task).filter(
+        models.Task.owner_id == current_user.id,
+        models.Task.status == "Pendente",
+        models.Task.due_date < now
+    ).all()
+    
+    for task in expired_tasks:
+        task.status = "Expirada"
+    
+    if expired_tasks:
+        db.commit()
+
     tasks = db.query(models.Task).filter(models.Task.owner_id == current_user.id).offset(skip).limit(limit).all()
     return tasks
 
@@ -35,6 +51,9 @@ def update_task(task_id: int, task_update: schemas.TaskCreate, db: Session = Dep
     
     for var, value in vars(task_update).items():
         setattr(db_task, var, value) if value else None
+
+    if db_task.status == "Expirada" and not db_task.completed:
+        db_task.status = "Pendente"
 
     db.commit()
     db.refresh(db_task)
@@ -63,6 +82,8 @@ def toggle_task_completion(task_id: int, db: Session = Depends(database.get_db),
         raise HTTPException(status_code=403, detail="Not authorized to update this task")
         
     db_task.completed = not db_task.completed
+    db_task.status = "Concluída" if db_task.completed else "Pendente"
+
     db.commit()
     db.refresh(db_task)
     return db_task

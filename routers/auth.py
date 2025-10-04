@@ -3,7 +3,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from datetime import timedelta
 
-from .. import schemas, models, security, database
+import schemas, models, security, database
 
 router = APIRouter()
 

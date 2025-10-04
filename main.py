@@ -1,13 +1,29 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from . import models
-from .database import engine
-from .routers import auth, tasks
+import models
+from database import engine
+from routers import auth, tasks
 
 models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+description = """
+API para gerenciar uma lista de tarefas (To-Do List). 🚀
+
+Desenvolvido por **Guilherme Silva Rios**.
+[Visite meu portfólio](https://guilhermeriosdev.vercel.app)
+"""
+
+app = FastAPI(
+    title="To-Do List API",
+    description=description,
+    version="1.0.0",
+    contact={
+        "name": "Guilherme Silva Rios",
+        "url": "https://guilhermeriosdev.vercel.app",
+    },
+)
+
 
 origins = [
     "http://localhost:5173",
